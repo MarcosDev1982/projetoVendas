@@ -17,26 +17,22 @@ import java.util.Optional;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
- @Autowired
- CategoriaService categoriaService;
+    @Autowired
+    CategoriaService categoriaService;
 
- @RequestMapping(method = RequestMethod.GET)
-    public  List<Categoria> findAll(){
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Categoria> findAll() {
 
-     Categoria cat = new Categoria(1, "Informatica");
-     Categoria cat2 = new Categoria(2, "Escritório");
 
-      List<Categoria> categoriaList = new ArrayList<>();
-      categoriaList.add(cat);
-      categoriaList.add(cat2);
-      return categoriaList;
- }
+        List<Categoria> categoriaList = new ArrayList<>();
+        return categoriaList;
+    }
 
- @RequestMapping(value = "/{id}", method = RequestMethod.GET)
- public ResponseEntity<?> findById(@PathVariable Integer id){
-  Categoria categoriaOptional = categoriaService.finById(id);
-   return ResponseEntity.ok().body(categoriaOptional);
- }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
+        Categoria categoriaOptional = categoriaService.finById(id);
+        return ResponseEntity.ok().body(categoriaOptional);
+    }
 
 
 }
