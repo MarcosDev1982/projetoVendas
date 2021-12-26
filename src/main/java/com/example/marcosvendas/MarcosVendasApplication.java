@@ -1,13 +1,8 @@
 package com.example.marcosvendas;
 
-import com.example.marcosvendas.domain.Categoria;
-import com.example.marcosvendas.domain.Cidade;
-import com.example.marcosvendas.domain.Estado;
-import com.example.marcosvendas.domain.Produto;
-import com.example.marcosvendas.repository.CategoriaRepositories;
-import com.example.marcosvendas.repository.CidadeRepositories;
-import com.example.marcosvendas.repository.EstadoRepositories;
-import com.example.marcosvendas.repository.ProdutoRepositories;
+import com.example.marcosvendas.domain.*;
+import com.example.marcosvendas.domain.enums.TipoCliente;
+import com.example.marcosvendas.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,16 +14,22 @@ import java.util.Arrays;
 public class MarcosVendasApplication implements CommandLineRunner {
 
     @Autowired
-    CategoriaRepositories categoriaRepositories;
+    private CategoriaRepositories categoriaRepositories;
 
     @Autowired
-    ProdutoRepositories produtoRepositories;
+    private ProdutoRepositories produtoRepositories;
 
     @Autowired
-    CidadeRepositories cidadeRepositories;
+    private CidadeRepositories cidadeRepositories;
 
     @Autowired
-    EstadoRepositories estadoRepositories;
+    private EstadoRepositories estadoRepositories;
+
+    @Autowired
+    private ClienteRepositories clienteRepositories;
+
+    @Autowired
+    private EnderecoRepositories enderecoRepositories;
 
     public static void main(String[] args) {
         SpringApplication.run(MarcosVendasApplication.class, args);
@@ -59,7 +60,16 @@ public class MarcosVendasApplication implements CommandLineRunner {
         Cidade c3 = new Cidade(null, "Campinas", est2);
 
         est1.getCidades().addAll(Arrays.asList(c1));
-        est2.getCidades().addAll(Arrays.asList(c2,c3));
+        est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+        Cliente cl1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "55373553026", TipoCliente.PESSOAFISICA);
+        cl1.getTelefones().addAll(Arrays.asList("23736200", "40202000"));
+
+        Endereco e1 = new Endereco(null, "Rua flores", "300", "Apto 3003", "Jardin", "8220834", cl1, c1);
+        Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Saida 800", "centro", "38777012", cl1, c2);
+
+        cl1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
 
 
 
@@ -69,6 +79,10 @@ public class MarcosVendasApplication implements CommandLineRunner {
 
         estadoRepositories.saveAll(Arrays.asList(est1, est2));
 
-        cidadeRepositories.saveAll(Arrays.asList(c1,c2,c3));
+        clienteRepositories.saveAll(Arrays.asList(cl1));
+
+        enderecoRepositories.saveAll(Arrays.asList(e1, e2));
+
+
     }
 }
