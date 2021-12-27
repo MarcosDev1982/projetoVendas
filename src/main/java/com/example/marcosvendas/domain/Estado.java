@@ -1,10 +1,8 @@
 package com.example.marcosvendas.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
 @Entity
 public class Estado implements Serializable {
@@ -30,6 +26,9 @@ public class Estado implements Serializable {
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 
+    public Estado() {
+
+    }
 
     public Estado(Integer id, String nome) {
         this.id = id;

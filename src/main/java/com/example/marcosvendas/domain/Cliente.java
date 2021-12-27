@@ -4,7 +4,6 @@ import com.example.marcosvendas.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -17,7 +16,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode
 public class Cliente implements Serializable {
 
@@ -42,8 +40,15 @@ public class Cliente implements Serializable {
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "telefones")
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    public Cliente() {
+
+    }
 
     public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.id = id;
@@ -60,5 +65,6 @@ public class Cliente implements Serializable {
     public void setTipoCliente(TipoCliente tipoCliente) {
         this.tipo = tipoCliente.getCodig();
     }
+
 
 }

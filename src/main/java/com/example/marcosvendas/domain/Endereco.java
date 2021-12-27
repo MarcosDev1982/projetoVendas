@@ -3,13 +3,11 @@ package com.example.marcosvendas.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode
 @Entity
 public class Endereco implements Serializable {
@@ -38,6 +36,10 @@ public class Endereco implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    public Endereco() {
+
+    }
 
 
     public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {

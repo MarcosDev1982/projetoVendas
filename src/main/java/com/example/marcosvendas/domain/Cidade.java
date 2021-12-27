@@ -2,13 +2,11 @@ package com.example.marcosvendas.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode
 @Entity
 public class Cidade implements Serializable {
@@ -24,6 +22,10 @@ public class Cidade implements Serializable {
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
+
+    public Cidade() {
+
+    }
 
     public Cidade(Integer id, String nome, Estado estado) {
         this.id = id;

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +14,6 @@ import java.util.List;
 @Data
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
 public class Produto implements Serializable {
 
@@ -32,9 +30,13 @@ public class Produto implements Serializable {
     @ManyToMany
     @JsonBackReference
     @JoinTable(name = "PRODUTO_CATEGORIA",
-    joinColumns = @JoinColumn(name = "produto_id"),
-    inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias = new ArrayList<>();
+
+    public Produto() {
+
+    }
 
     public Produto(Integer id, String nome, Double preco) {
         this.id = id;
