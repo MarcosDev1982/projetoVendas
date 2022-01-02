@@ -2,8 +2,9 @@ package com.example.marcosvendas.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Data
-@EqualsAndHashCode
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Categoria implements Serializable {
 
@@ -20,6 +22,7 @@ public class Categoria implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include()
     private Integer id;
 
     private String nome;
