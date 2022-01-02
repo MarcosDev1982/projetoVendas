@@ -1,6 +1,7 @@
 package com.example.marcosvendas.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Pedido implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     Cliente cliente;
