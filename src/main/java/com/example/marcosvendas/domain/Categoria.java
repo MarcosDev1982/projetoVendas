@@ -1,7 +1,7 @@
 package com.example.marcosvendas.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +27,7 @@ public class Categoria implements Serializable {
 
     private String nome;
 
-    @JsonManagedReference
+    @JsonIgnore
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
 

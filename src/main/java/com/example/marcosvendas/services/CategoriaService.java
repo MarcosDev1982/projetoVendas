@@ -5,7 +5,6 @@ import com.example.marcosvendas.repository.CategoriaRepositories;
 import com.example.marcosvendas.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import java.util.Optional;
 
@@ -18,6 +17,11 @@ public class CategoriaService {
     public Categoria finById(Integer id) {
         Optional<Categoria> obj = categoriaRepositories.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("objeto não encontrado! Id" + id + ", Tipo: " + Categoria.class.getName()));
+    }
+
+    public Categoria insert(Categoria cat) {
+        cat.setId(null);
+        return categoriaRepositories.save(cat);
     }
 
 }
