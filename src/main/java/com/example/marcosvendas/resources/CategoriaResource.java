@@ -1,6 +1,7 @@
 package com.example.marcosvendas.resources;
 
 import com.example.marcosvendas.domain.Categoria;
+import com.example.marcosvendas.dto.CategoriaDTO;
 import com.example.marcosvendas.repository.CategoriaRepositories;
 import com.example.marcosvendas.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -23,11 +24,13 @@ public class CategoriaResource {
     CategoriaRepositories categoriaRepositories;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> findAll() {
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<Categoria> categoriaList = categoriaService.findAll();
+        List<CategoriaDTO> categoriaDTOS = categoriaList.stream().
+                map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
 
 
-        List<Categoria> categoriaList = new ArrayList<>();
-        return categoriaList;
+        return ResponseEntity.ok().body(categoriaDTOS);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
