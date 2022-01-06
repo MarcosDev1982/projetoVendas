@@ -1,6 +1,7 @@
 package com.example.marcosvendas.services;
 
 import com.example.marcosvendas.domain.Categoria;
+import com.example.marcosvendas.dto.CategoriaDTO;
 import com.example.marcosvendas.repository.CategoriaRepositories;
 import com.example.marcosvendas.services.exception.DataIntegrityException;
 import com.example.marcosvendas.services.exception.ObjectNotFoundException;
@@ -55,5 +56,8 @@ public class CategoriaService {
         return categoriaRepositories.findAll(pageRequest);
     }
 
+    public Categoria CategoriaFromDTO(CategoriaDTO categoriaDTO) {
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 
+    }
 }
