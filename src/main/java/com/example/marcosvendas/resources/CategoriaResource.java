@@ -5,6 +5,7 @@ import com.example.marcosvendas.dto.CategoriaDTO;
 import com.example.marcosvendas.repository.CategoriaRepositories;
 import com.example.marcosvendas.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -59,6 +60,19 @@ public class CategoriaResource {
     public ResponseEntity<Void> update(@PathVariable Integer id) {
         categoriaService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriaDTO>> page(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                   @RequestParam(value = "linesPage", defaultValue = "24") Integer lisnesPage,
+                                                   @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+                                                   @RequestParam(value = "decretion", defaultValue = "ASC") String decretion) {
+        Page<Categoria> categoriaList = categoriaService.findPage(page, lisnesPage, orderBy, decretion);
+        Page<CategoriaDTO> categoriaDTOS = categoriaList.
+                map(obj -> new CategoriaDTO(obj));
+        return ResponseEntity.ok().body(categoriaDTOS);
+
+
     }
 
 

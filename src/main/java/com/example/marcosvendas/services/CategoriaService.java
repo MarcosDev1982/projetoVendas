@@ -6,6 +6,9 @@ import com.example.marcosvendas.services.exception.DataIntegrityException;
 import com.example.marcosvendas.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,4 +49,11 @@ public class CategoriaService {
             throw new DataIntegrityException("Não é  possível excluir uma categoria que ja tem produtos");
         }
     }
+
+    public Page<Categoria> findPage(Integer page, Integer lisnesPage, String orderBay, String decretion) {
+        PageRequest pageRequest = PageRequest.of(page, lisnesPage, Sort.Direction.valueOf(decretion), orderBay);
+        return categoriaRepositories.findAll(pageRequest);
+    }
+
+
 }
