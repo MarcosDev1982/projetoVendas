@@ -43,7 +43,7 @@ public class CategoriaResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
-        Categoria obj = categoriaService.CategoriaFromDTO(objDTO);
+        Categoria obj = categoriaService.categoriaFromDTO(objDTO);
         obj = categoriaService.insert(obj);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
@@ -53,14 +53,14 @@ public class CategoriaResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @PathVariable Integer id, @Valid @RequestBody CategoriaDTO objDTO) {
-        Categoria obj = categoriaService.CategoriaFromDTO(objDTO);
+        Categoria obj = categoriaService.categoriaFromDTO(objDTO);
         obj.setId(id);
         obj = categoriaService.update(obj);
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> update(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         categoriaService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,10 +28,10 @@ public class Cliente implements Serializable {
 
     private String nome;
 
-    @Email
+
     private String email;
 
-    @CPF
+
     private String cpfOuCnpj;
 
     private Integer tipo;
@@ -58,7 +56,7 @@ public class Cliente implements Serializable {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo.getCodig();
+        this.tipo = (tipo == null) ? null : tipo.getCodig();
     }
 
     public TipoCliente getTipo() {

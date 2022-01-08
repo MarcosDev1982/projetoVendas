@@ -51,12 +51,12 @@ public class CategoriaService {
         }
     }
 
-    public Page<Categoria> findPage(Integer page, Integer lisnesPage, String orderBay, String decretion) {
-        PageRequest pageRequest = PageRequest.of(page, lisnesPage, Sort.Direction.valueOf(decretion), orderBay);
+    public Page<Categoria> findPage(Integer page, Integer lisnesPage, String orderBy, String decretion) {
+        PageRequest pageRequest = PageRequest.of(page, lisnesPage, Sort.Direction.valueOf(decretion), orderBy);
         return categoriaRepositories.findAll(pageRequest);
     }
 
-    public Categoria CategoriaFromDTO(CategoriaDTO categoriaDTO) {
+    public Categoria categoriaFromDTO(CategoriaDTO categoriaDTO) {
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 
     }
