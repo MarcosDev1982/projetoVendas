@@ -1,6 +1,7 @@
 package com.example.marcosvendas.dto;
 
 import com.example.marcosvendas.domain.Cliente;
+import com.example.marcosvendas.services.validation.ClienteUpdate;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
+@ClienteUpdate
 public class ClienteDTO {
 
 
