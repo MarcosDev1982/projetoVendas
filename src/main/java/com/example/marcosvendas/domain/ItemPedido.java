@@ -1,6 +1,7 @@
 package com.example.marcosvendas.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -10,12 +11,14 @@ import java.util.Locale;
 
 
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ItemPedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore
     @EmbeddedId
+    @EqualsAndHashCode.Include()
     private ItemPedidoPK id = new ItemPedidoPK();
 
     private Double desconto;
@@ -78,30 +81,7 @@ public class ItemPedido implements Serializable {
         this.quantidade = quantidade;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ItemPedido other = (ItemPedido) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
 
     @Override
     public String toString() {
