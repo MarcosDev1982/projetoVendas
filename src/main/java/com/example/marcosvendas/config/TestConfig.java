@@ -2,7 +2,7 @@ package com.example.marcosvendas.config;
 
 import com.example.marcosvendas.services.DBService;
 import com.example.marcosvendas.services.EmailService;
-import com.example.marcosvendas.services.MockEmailService;
+import com.example.marcosvendas.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +24,14 @@ public class TestConfig {
         return true;
     }
 
-    @Bean
+  /*  @Bean
     public EmailService emailService() {
         return new MockEmailService();
+    } */
+
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
     }
 
 
