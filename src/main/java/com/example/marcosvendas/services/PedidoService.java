@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class PedidoService {
     }
 
     @Transactional
-    public Pedido insert(Pedido obj) {
+    public Pedido insert(Pedido obj) throws MessagingException {
         obj.setId(null);
         obj.setInstante(new Date());
         obj.setCliente(clienteService.finById(obj.getCliente().getId()));
@@ -68,7 +69,7 @@ public class PedidoService {
             ip.setPedido(obj);
         }
         itemPedidoRepositories.saveAll(obj.getItens());
-        emailService.senOrderCofirmationEmail(obj);
+        emailService.sendOrderConfirmationHtmlEmail(obj);
         return obj;
     }
 }

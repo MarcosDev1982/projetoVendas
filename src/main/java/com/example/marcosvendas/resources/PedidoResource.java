@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class PedidoResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) throws MessagingException {
         obj = pedidoService.insert(obj);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
