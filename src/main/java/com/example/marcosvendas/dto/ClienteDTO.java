@@ -25,6 +25,9 @@ public class ClienteDTO {
     @Email(message = "Email inválido")
     private String email;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
+    private String senha;
+
     public ClienteDTO() {
     }
 
@@ -33,7 +36,6 @@ public class ClienteDTO {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.email = obj.getEmail();
-
     }
 
 }

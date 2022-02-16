@@ -5,6 +5,7 @@ import com.example.marcosvendas.domain.enums.EstadoPagamento;
 import com.example.marcosvendas.domain.enums.TipoCliente;
 import com.example.marcosvendas.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -32,6 +33,9 @@ public class DBService {
     private EnderecoRepositories enderecoRepositories;
     @Autowired
     private PedidoRepositories pedidoRepositories;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void istantiateDataBase() throws ParseException {
 
@@ -180,11 +184,11 @@ public class DBService {
         estadoRepositories.saveAll(Arrays.asList(est1, est2));
         cidadeRepositories.saveAll(Arrays.asList(c1, c2, c3));
 
-        Cliente cli1 = new Cliente(null, "Maria Silva", "alan325batera@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        Cliente cli1 = new Cliente(null, "Maria Silva", "alan325batera@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
 
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
-        Cliente cli2 = new Cliente(null, "Ana Costa", "nelio.iftm@gmail.com", "31628382740", TipoCliente.PESSOAFISICA);
+        Cliente cli2 = new Cliente(null, "Ana Costa", "nelio.iftm@gmail.com", "31628382740", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("1234"));
         cli2.getTelefones().addAll(Arrays.asList("93883321", "34252625"));
 
 
