@@ -4,11 +4,14 @@ import com.example.marcosvendas.domain.Categoria;
 import com.example.marcosvendas.domain.Cidade;
 import com.example.marcosvendas.domain.Cliente;
 import com.example.marcosvendas.domain.Endereco;
+import com.example.marcosvendas.domain.enums.Perfil;
 import com.example.marcosvendas.domain.enums.TipoCliente;
 import com.example.marcosvendas.dto.ClienteDTO;
 import com.example.marcosvendas.dto.ClienteNewDTO;
 import com.example.marcosvendas.repository.ClienteRepositories;
 import com.example.marcosvendas.repository.EnderecoRepositories;
+import com.example.marcosvendas.security.UserSS;
+import com.example.marcosvendas.services.exception.AuthorizarionException;
 import com.example.marcosvendas.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +43,11 @@ public class ClienteService {
     }
 
     public Cliente finById(Integer id) {
+
+        UserSS userSS = UserService.authenticaeed();
+        if (userSS == null || userSS.hasRole(Perfil.ADMIN) && id.equals(userSS.getId())) {
+            throw new AuthorizarionException("Acesso negado");
+        }
         Optional<Cliente> obj = clienteRepositories.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("objeto não encontrado! Id" + id + ", Tipo: " + Categoria.class.getName()));
     }
