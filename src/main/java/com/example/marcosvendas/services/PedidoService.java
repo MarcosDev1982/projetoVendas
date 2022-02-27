@@ -1,15 +1,17 @@
 package com.example.marcosvendas.services;
 
-import com.example.marcosvendas.domain.Categoria;
-import com.example.marcosvendas.domain.ItemPedido;
-import com.example.marcosvendas.domain.PagamentoComBoleto;
-import com.example.marcosvendas.domain.Pedido;
+import com.example.marcosvendas.domain.*;
 import com.example.marcosvendas.domain.enums.EstadoPagamento;
 import com.example.marcosvendas.repository.ItemPedidoRepositories;
 import com.example.marcosvendas.repository.PagamentoRepositories;
 import com.example.marcosvendas.repository.PedidoRepositories;
+import com.example.marcosvendas.security.UserSS;
+import com.example.marcosvendas.services.exception.AuthorizarionException;
 import com.example.marcosvendas.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,4 +74,15 @@ public class PedidoService {
         emailService.sendOrderConfirmationHtmlEmail(obj);
         return obj;
     }
+
+    public Page<Pedido> findPage(Integer page, Integer lisnesPage, String orderBy, String decretion) {
+        UserSS userSS = UserService.authenticaeed();
+        if (userSS == null) {
+            throw new AuthorizarionException("Acesso negado");
+        }
+        PageRequest pageRequest = PageRequest.of(page, lisnesPage, Sort.Direction.valueOf(decretion), orderBy);
+        Cliente cliente = clienteService.finById(userSS.getId());
+        return pedidoRepositories.findByCliente(cliente, pageRequest);
+    }
+
 }
