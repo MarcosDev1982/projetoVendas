@@ -1,5 +1,6 @@
 package com.example.marcosvendas.services;
 
+import com.example.marcosvendas.domain.Cliente;
 import com.example.marcosvendas.domain.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,4 +63,25 @@ public abstract class AbstractEmailService implements EmailService {
         mimeMessageHelper.setText(htmlFromTemplatePedido(obj), true);
         return mimeMessage;
     }
+
+    @Override
+    public void sendNewPassword(Cliente cliente, String newPass) {
+        SimpleMailMessage sm = prepareNewPassawordMail(cliente, newPass);
+        sendEmail(sm);
+    }
+
+    protected SimpleMailMessage prepareNewPassawordMail(Cliente cliente, String newPass) {
+
+        SimpleMailMessage sm = new SimpleMailMessage();
+
+        sm.setTo(cliente.getEmail());
+        sm.setFrom(sender);
+        sm.setSubject("Soliciatação de nova senha");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("nova senha " + newPass);
+        return sm;
+
+    }
+
+
 }

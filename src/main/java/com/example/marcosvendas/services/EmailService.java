@@ -1,5 +1,6 @@
 package com.example.marcosvendas.services;
 
+import com.example.marcosvendas.domain.Cliente;
 import com.example.marcosvendas.domain.Pedido;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -15,6 +16,8 @@ public interface EmailService {
     void sendOrderConfirmationHtmlEmail(Pedido obj) throws MessagingException;
 
     void sendHtmlEmail(MimeMessage msg);
+
+    void sendNewPassword(Cliente cliente, String newPass);
 
 
 }
