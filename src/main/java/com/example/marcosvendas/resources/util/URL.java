@@ -2,8 +2,9 @@ package com.example.marcosvendas.resources.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class URL {
 
@@ -20,12 +21,7 @@ public class URL {
 
     public static List<Integer> decodeList(String s) {
 
-        String[] vet = s.split(",");
-        List<Integer> listIneger = new ArrayList<>();
-        for (int i = 0; i < vet.length; i++) {
-            listIneger.add(Integer.parseInt(vet[i]));
-        }
-        return listIneger;
+        return Arrays.asList(s.split(",")).stream().map(x -> Integer.parseInt(x)).collect(Collectors.toList());
     }
 
 }

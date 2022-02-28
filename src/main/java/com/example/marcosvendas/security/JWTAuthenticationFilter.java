@@ -61,15 +61,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     }
 
-    private String json() {
-        long date = new Date().getTime();
-        return "{\"timestamp\": " + date + ", "
-                + "\"status\": 401, "
-                + "\"error\": \"Não autorizado\", "
-                + "\"message\": \"Email ou senha inválidos\", "
-                + "\"path\": \"/login\"}";
-    }
-
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
         @Override
@@ -79,7 +70,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setContentType("application/json");
             response.getWriter().append(json());
         }
+    }
 
+    private String json() {
+        long date = new Date().getTime();
+        return "{\"timestamp\": " + date + ", "
+                + "\"status\": 401, "
+                + "\"error\": \"Não autorizado\", "
+                + "\"message\": \"Email ou senha inválidos\", "
+                + "\"path\": \"/login\"}";
     }
 
 

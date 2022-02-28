@@ -42,14 +42,6 @@ public class JWTUtil {
         return false;
     }
 
-    private Claims getClaims(String tokem) {
-        try {
-            return Jwts.parser().setSigningKey(scret.getBytes()).parseClaimsJws(tokem).getBody();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public String getUserName(String tokem) {
         Claims claims = getClaims(tokem);
         if (claims != null) {
@@ -58,4 +50,14 @@ public class JWTUtil {
         }
         return null;
     }
+
+    private Claims getClaims(String tokem) {
+        try {
+            return Jwts.parser().setSigningKey(scret.getBytes()).parseClaimsJws(tokem).getBody();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
 }

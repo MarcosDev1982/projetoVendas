@@ -72,15 +72,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Override
     public void configure(AuthenticationManagerBuilder aut) throws Exception {
         aut.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 
